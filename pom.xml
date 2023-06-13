@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>xyx.acme</groupId>
+	<artifactId>top</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<modules>
+		<module>other</module> <!-- Just to have a second module -->
+		<module>www</module> <!-- Sub Module with UI -->
+	</modules>
+
+
+	<properties>
+		<!-- Development -->
+		<version.maven>3.9.2</version.maven>
+		<maven.compiler.target>17</maven.compiler.target>
+		<maven.compiler.source>17</maven.compiler.source>
+		<quarkus.version>3.1.1.Final</quarkus.version>
+
+		<!-- General -->
+		<version.surefire.plugin>3.1.0</version.surefire.plugin>
+		<version.javadoc.plugin>3.5.0</version.javadoc.plugin>
+		<version.lombok>1.18.28</version.lombok>
+
+		<!-- Encoding -->
+		<encoding-utf8>UTF-8</encoding-utf8>
+		<propertiesEncoding>${encoding-utf8}</propertiesEncoding>
+		<project.build.sourceEncoding>${encoding-utf8}</project.build.sourceEncoding>
+		<project.resources.sourceEncoding>${encoding-utf8}</project.resources.sourceEncoding>
+		<project.reporting.outputEncoding>${encoding-utf8}</project.reporting.outputEncoding>
+		<archetype.encoding>${encoding-utf8}</archetype.encoding>
+
+		<!-- Debug, Development and Test Ports -->
+		<!-- See .mvn/maven.config for Port Assignment-->
+		<module.other.debug.port>${OTHER_DEBUG_PORT}</module.other.debug.port>
+		<module.other.dev.port>${OTHER_DEV_PORT}</module.other.dev.port>
+		<module.other.test.port>${OTHER_TEST_PORT}</module.other.test.port>
+
+		<module.www.debug.port>${WWW_DEBUG_PORT}</module.www.debug.port>
+		<module.www.dev.port>${WWW_DEV_PORT}</module.www.dev.port>
+		<module.www.test.port>${WWW_TEST_PORT}</module.www.test.port>
+
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<!-- Bill of Materials -->
+			<dependency>
+				<groupId>io.quarkus</groupId>
+				<artifactId>quarkus-bom</artifactId>
+				<version>${quarkus.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
+
+
+			<!-- General -->
+			<!-- Just happen to be using these real project -->
+			<dependency>
+				<groupId>io.quarkiverse.omnifaces</groupId>
+				<artifactId>quarkus-omnifaces</artifactId>
+				<version>4.1.4</version>
+			</dependency>
+			<dependency>
+				<groupId>io.quarkiverse.primefaces</groupId>
+				<artifactId>quarkus-primefaces</artifactId>
+				<version>3.13.0</version>
+			</dependency>
+			<dependency>
+				<groupId>io.quarkiverse.primefaces</groupId>
+				<artifactId>quarkus-primefaces-extensions</artifactId>
+				<version>3.13.0</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.myfaces.core.extensions.quarkus</groupId>
+				<artifactId>myfaces-quarkus</artifactId>
+				<version>4.0.1</version>
+			</dependency>
+
+
+
+
+
+
+			<!-- Testing -->
+			<dependency>
+				<groupId>org.assertj</groupId>
+				<artifactId>assertj-core</artifactId>
+				<version>3.24.2</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-javadoc-plugin</artifactId>
+					<version>${version.javadoc.plugin}</version>
+				</plugin>
+				<plugin>
+					<groupId>com.diffplug.spotless</groupId>
+					<artifactId>spotless-maven-plugin</artifactId>
+					<version>2.37.0</version>
+				</plugin>
+				<plugin>
+					<groupId>io.github.cleydyr</groupId>
+					<artifactId>dart-sass-maven-plugin</artifactId>
+					<version>1.1.0</version>
+				</plugin>
+				<plugin>
+					<groupId>io.quarkus</groupId>
+					<artifactId>quarkus-maven-plugin</artifactId>
+					<version>${quarkus.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-antrun-plugin</artifactId>
+					<version>3.1.0</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-clean-plugin</artifactId>
+					<version>3.2.0</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.11.0</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-dependency-plugin</artifactId>
+					<version>3.6.0</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-deploy-plugin</artifactId>
+					<version>3.1.1</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-enforcer-plugin</artifactId>
+					<version>3.3.0</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-failsafe-plugin</artifactId>
+					<version>${version.surefire.plugin}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-install-plugin</artifactId>
+					<version>3.1.1</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-jar-plugin</artifactId>
+					<version>3.3.0</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-release-plugin</artifactId>
+					<version>3.0.0</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-resources-plugin</artifactId>
+					<version>3.3.1</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-scm-plugin</artifactId>
+					<version>2.0.1</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-site-plugin</artifactId>
+					<version>4.0.0-M8</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>${version.surefire.plugin}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>buildnumber-maven-plugin</artifactId>
+					<version>3.1.0</version>
+				</plugin>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>exec-maven-plugin</artifactId>
+					<version>3.1.0</version>
+				</plugin>
+				<plugin>
+					<groupId>org.jboss.jandex</groupId>
+					<artifactId>jandex-maven-plugin</artifactId>
+					<version>1.2.3</version>
+				</plugin>
+				<plugin>
+					<groupId>org.primefaces.extensions</groupId>
+					<artifactId>resources-optimizer-maven-plugin</artifactId>
+					<version>2.5.7</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>${version.javadoc.plugin}</version>
+			</plugin>
+		</plugins>
+	</reporting>
+
+	<profiles>
+		<profile>
+			<id>native</id>
+			<activation>
+				<property>
+					<name>native</name>
+				</property>
+			</activation>
+			<properties>
+				<quarkus.package.type>native</quarkus.package.type>
+				<quarkus.native.additional-build-args>-J--enable-preview</quarkus.native.additional-build-args>
+				<!-- <quarkus.native.additional-build-args>-J&#45;&#45;enable-preview,&#45;&#45;static,&#45;&#45;libc=musl</quarkus.native.additional-build-args> -->
+				<!-- Surefire -->
+				<skipTests>true</skipTests>
+				<!-- Failsafe -->
+				<skipITs>true</skipITs>
+			</properties>
+		</profile>
+		<profile>
+			<id>normal</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<!-- Surefire -->
+				<skipTests>true</skipTests>
+				<!-- Failsafe -->
+				<skipITs>true</skipITs>
+			</properties>
+		</profile>
+	</profiles>
+
+</project>
